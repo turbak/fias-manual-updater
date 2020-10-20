@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: mvd-fias-manual-updater
+  datasource:
+    username: ${APPFIAS_PG_USER:put_db_user_creds_via_program_args}
+    password: ${APPFIAS_PG_PASSWORD:put_db_password_via_program_args}
+    url: "${APPFIAS_PG_URL:put_db_url_via_command_line_args}"
+  batch:
+    initialize-schema: never
+    job:
+      enabled: false
+    table-prefix: "FIASUPDATE.BATCH_"
