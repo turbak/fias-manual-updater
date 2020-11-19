@@ -6,9 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import ru.digital.league.manualfias.db.entity.HouseEntity;
+import ru.digital.league.manualfias.service.address.FiasExtensionUpdateService;
 import ru.digital.league.manualfias.xml.pojo.House;
-
-import java.time.Instant;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,6 +15,7 @@ import java.time.Instant;
 public class HouseItemProcessor implements ItemProcessor<House, HouseEntity> {
 
     private final ModelMapper modelMapper;
+    private final FiasExtensionUpdateService fiasExtensionUpdateService;
 
     @Override
     public HouseEntity process(House item) throws Exception {
@@ -35,8 +35,7 @@ public class HouseItemProcessor implements ItemProcessor<House, HouseEntity> {
             log.warn("House item {} contains field cadNum that violates field length constraint", item);
             return null;
         }
-        log.info("house entity {}", item);
-        return modelMapper.map(item, HouseEntity.class);
+        return fiasExtensionUpdateService.updateEntity(modelMapper.map(item, HouseEntity.class));
     }
 
 }

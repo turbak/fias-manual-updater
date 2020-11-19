@@ -12,14 +12,14 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "tbfias_address_obj", schema = "fias")
+@Table(name = "tbfias_address_obj", schema = "fias_reserve")
 public class AddressEntity {
 
     @Id
     @Column(name = "ao_id")
     private String aoId;
     @Column(name = "ao_guid")
-    private String aoguid;
+    private String aoGuid;
     @Column(name = "formal_name")
     private String formalName;
     @Column(name = "region_code")

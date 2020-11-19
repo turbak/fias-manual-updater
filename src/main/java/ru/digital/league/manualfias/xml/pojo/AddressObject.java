@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class AddressObject {
 
     @XmlAttribute(name = "AOGUID")
-    private String aoguid;
+    private String aoGuid;
 
     @XmlAttribute(name = "FORMALNAME")
     private String formalName;

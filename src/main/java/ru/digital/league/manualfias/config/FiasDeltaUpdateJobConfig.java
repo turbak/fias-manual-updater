@@ -11,6 +11,7 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import ru.digital.league.manualfias.batch.reader.AddressItemReader;
 import ru.digital.league.manualfias.batch.reader.HouseItemReader;
@@ -20,6 +21,7 @@ import ru.digital.league.manualfias.xml.pojo.AddressObject;
 import ru.digital.league.manualfias.xml.pojo.House;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 @Configuration
 public class FiasDeltaUpdateJobConfig {
@@ -99,4 +101,10 @@ public class FiasDeltaUpdateJobConfig {
 		return jaxb2Marshaller;
 	}
 
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		JdbcTemplate template = new JdbcTemplate(dataSource);
+		template.setQueryTimeout(2000);
+		return template;
+	}
 }

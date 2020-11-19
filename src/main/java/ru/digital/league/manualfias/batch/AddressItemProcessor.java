@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import ru.digital.league.manualfias.db.entity.AddressEntity;
+import ru.digital.league.manualfias.service.address.FiasExtensionUpdateService;
 import ru.digital.league.manualfias.xml.pojo.AddressObject;
 
 @Slf4j
@@ -14,6 +15,7 @@ import ru.digital.league.manualfias.xml.pojo.AddressObject;
 public class AddressItemProcessor implements ItemProcessor<AddressObject, AddressEntity> {
 
     private final ModelMapper modelMapper;
+    private final FiasExtensionUpdateService fiasExtensionUpdateService;
 
     @Override
     public AddressEntity process(AddressObject item) throws Exception {
@@ -33,8 +35,7 @@ public class AddressItemProcessor implements ItemProcessor<AddressObject, Addres
             log.warn("Item name {} violates field length constraint (10)", item.getShortName());
             return null;
         }
-        log.info("address entity {}", item);
-        return modelMapper.map(item, AddressEntity.class);
+        return fiasExtensionUpdateService.updateEntity(modelMapper.map(item, AddressEntity.class));
     }
 
 }
